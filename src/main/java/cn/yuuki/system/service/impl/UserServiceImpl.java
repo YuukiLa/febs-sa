@@ -177,7 +177,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SystemUser> impleme
             Long userId = currentUser.getUserId();
             SystemUser user = new SystemUser();
             user.setUserId(userId);
-            user.setTheme(theme);
             baseMapper.updateById(user);
         }
     }

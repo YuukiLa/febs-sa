@@ -168,10 +168,6 @@ public class SystemUser implements Serializable {
     @TableField(exist = false)
     private String roleId;
 
-    /**
-     * 侧栏主题
-     */
-    private String theme;
 
     @TableField(exist = false)
     private String roleName;
