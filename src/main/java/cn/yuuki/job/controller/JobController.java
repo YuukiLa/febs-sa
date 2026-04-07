@@ -8,16 +8,15 @@ import cn.yuuki.common.domain.constant.StringConstant;
 import cn.yuuki.common.utils.FebsUtil;
 import cn.yuuki.job.entity.Job;
 import cn.yuuki.job.service.IJobService;
-import com.wuwenze.poi.ExcelKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.CronExpression;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -86,10 +85,4 @@ public class JobController {
         this.jobService.resume(jobIds);
     }
 
-    @PostMapping("excel")
-    @SaCheckPermission("job:export")
-    public void export(QueryRequest request, Job job, HttpServletResponse response) {
-        List<Job> jobs = this.jobService.findJobs(request, job).getRecords();
-        ExcelKit.$Export(Job.class, response).downXlsx(jobs, false);
-    }
 }

@@ -1,24 +1,22 @@
 package cn.yuuki.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import cn.yuuki.common.annotation.ControllerEndpoint;
-import cn.yuuki.common.utils.FebsUtil;
-import com.wuwenze.poi.ExcelKit;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import cn.yuuki.common.domain.FebsResponse;
 import cn.yuuki.common.domain.constant.StringConstant;
+import cn.yuuki.common.utils.FebsUtil;
 import cn.yuuki.system.entity.router.VueRouter;
 import cn.yuuki.system.entity.system.Menu;
 import cn.yuuki.system.service.IMenuService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,11 +81,4 @@ public class MenuController {
         this.menuService.updateMenu(menu);
     }
 
-    @PostMapping("excel")
-    @SaCheckPermission("menu:export")
-    @ControllerEndpoint(operation = "导出菜单数据", exceptionMessage = "导出Excel失败")
-    public void export(Menu menu, HttpServletResponse response) {
-        List<Menu> menus = this.menuService.findMenuList(menu);
-        ExcelKit.$Export(Menu.class, response).downXlsx(menus, false);
-    }
 }

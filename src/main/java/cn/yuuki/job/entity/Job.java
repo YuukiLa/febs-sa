@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.wuwenze.poi.annotation.Excel;
-import com.wuwenze.poi.annotation.ExcelField;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +16,6 @@ import java.util.Date;
  */
 @Data
 @TableName("t_job")
-@Excel("定时任务信息表")
 public class Job implements Serializable {
 
     /**
@@ -31,27 +28,21 @@ public class Job implements Serializable {
     @TableField("bean_name")
     @NotBlank(message = "{required}")
     @Size(max = 50, message = "{noMoreThan}")
-    @ExcelField(value = "Bean名称")
     private String beanName;
     @TableField("method_name")
     @NotBlank(message = "{required}")
     @Size(max = 50, message = "{noMoreThan}")
-    @ExcelField(value = "方法名称")
     private String methodName;
     @TableField("params")
     @Size(max = 50, message = "{noMoreThan}")
-    @ExcelField(value = "方法参数")
     private String params;
     @TableField("cron_expression")
     @NotBlank(message = "{required}")
-    @ExcelField(value = "Cron表达式")
     private String cronExpression;
     @TableField("status")
-    @ExcelField(value = "状态", writeConverterExp = "0=正常,1=暂停")
     private String status;
     @TableField("remark")
     @Size(max = 100, message = "{noMoreThan}")
-    @ExcelField(value = "备注")
     private String remark;
     @TableField("create_time")
     private Date createTime;

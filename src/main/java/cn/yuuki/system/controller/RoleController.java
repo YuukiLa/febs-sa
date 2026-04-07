@@ -2,21 +2,19 @@ package cn.yuuki.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.yuuki.common.annotation.ControllerEndpoint;
-import cn.yuuki.common.utils.FebsUtil;
-import com.wuwenze.poi.ExcelKit;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import cn.yuuki.common.domain.FebsResponse;
 import cn.yuuki.common.domain.QueryRequest;
 import cn.yuuki.common.domain.constant.StringConstant;
+import cn.yuuki.common.utils.FebsUtil;
 import cn.yuuki.system.entity.system.Role;
 import cn.yuuki.system.service.IRoleService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -72,11 +70,5 @@ public class RoleController {
         this.roleService.updateRole(role);
     }
 
-    @PostMapping("excel")
-    @SaCheckPermission("role:export")
-    @ControllerEndpoint(operation = "导出角色数据", exceptionMessage = "导出Excel失败")
-    public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) {
-        List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
-        ExcelKit.$Export(Role.class, response).downXlsx(roles, false);
-    }
+
 }

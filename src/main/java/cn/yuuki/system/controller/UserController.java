@@ -3,26 +3,24 @@ package cn.yuuki.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.yuuki.common.annotation.ControllerEndpoint;
-import cn.yuuki.common.exception.FebsException;
-import cn.yuuki.common.utils.FebsUtil;
-import cn.yuuki.system.controller.req.Profile;
-import com.wuwenze.poi.ExcelKit;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import cn.yuuki.common.domain.FebsResponse;
 import cn.yuuki.common.domain.QueryRequest;
 import cn.yuuki.common.domain.constant.StringConstant;
+import cn.yuuki.common.exception.FebsException;
+import cn.yuuki.common.utils.FebsUtil;
+import cn.yuuki.system.controller.req.Profile;
 import cn.yuuki.system.entity.system.SystemUser;
 import cn.yuuki.system.service.ILoginLogService;
 import cn.yuuki.system.service.IUserDataPermissionService;
 import cn.yuuki.system.service.IUserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,11 +162,4 @@ public class UserController {
         this.userService.resetPassword(usernameArr);
     }
 
-    @PostMapping("excel")
-    @SaCheckPermission("user:export")
-    @ControllerEndpoint(operation = "导出用户数据", exceptionMessage = "导出Excel失败")
-    public void export(QueryRequest queryRequest, SystemUser user, HttpServletResponse response) {
-        List<SystemUser> users = this.userService.findUserDetailList(user, queryRequest).getRecords();
-        ExcelKit.$Export(SystemUser.class, response).downXlsx(users, false);
-    }
 }

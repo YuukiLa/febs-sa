@@ -59,7 +59,7 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     @Override
     public void deleteLoginLogs(String[] ids) {
         List<String> list = Arrays.asList(ids);
-        baseMapper.deleteBatchIds(list);
+        baseMapper.deleteByIds(list);
     }
 
     @Override

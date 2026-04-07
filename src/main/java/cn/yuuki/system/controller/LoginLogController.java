@@ -2,19 +2,17 @@ package cn.yuuki.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.yuuki.common.annotation.ControllerEndpoint;
-import cn.yuuki.common.utils.FebsUtil;
-import com.wuwenze.poi.ExcelKit;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import cn.yuuki.common.domain.FebsResponse;
 import cn.yuuki.common.domain.QueryRequest;
 import cn.yuuki.common.domain.constant.StringConstant;
+import cn.yuuki.common.utils.FebsUtil;
 import cn.yuuki.system.entity.system.LoginLog;
 import cn.yuuki.system.service.ILoginLogService;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +48,5 @@ public class LoginLogController {
         this.loginLogService.deleteLoginLogs(loginLogIds);
     }
 
-    @PostMapping("excel")
-    @SaCheckPermission("loginlog:export")
-    @ControllerEndpoint(operation = "导出登录日志数据", exceptionMessage = "导出Excel失败")
-    public void export(QueryRequest request, LoginLog loginLog, HttpServletResponse response) {
-        List<LoginLog> loginLogs = this.loginLogService.findLoginLogs(loginLog, request).getRecords();
-        ExcelKit.$Export(LoginLog.class, response).downXlsx(loginLogs, false);
-    }
+
 }

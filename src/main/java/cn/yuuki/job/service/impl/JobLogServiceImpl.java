@@ -51,7 +51,7 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
     @Override
     public void deleteJobLogs(String[] jobLogIds) {
         List<String> list = Arrays.asList(jobLogIds);
-        this.baseMapper.deleteBatchIds(list);
+        this.baseMapper.deleteByIds(list);
     }
 
 }

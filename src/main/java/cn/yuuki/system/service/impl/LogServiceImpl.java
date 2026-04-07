@@ -16,7 +16,7 @@ import cn.yuuki.system.mapper.LogMapper;
 import cn.yuuki.system.service.ILogService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,7 +61,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
     @Override
     public void deleteLogs(String[] logIds) {
         List<String> list = Arrays.asList(logIds);
-        baseMapper.deleteBatchIds(list);
+        baseMapper.deleteByIds(list);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
         log.setMethod(className + "." + methodName + "()");
 
         Object[] args = point.getArgs();
-        LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
+        StandardReflectionParameterNameDiscoverer u = new StandardReflectionParameterNameDiscoverer();
         String[] paramNames = u.getParameterNames(method);
         if (args != null && paramNames != null) {
             StringBuilder params = new StringBuilder();

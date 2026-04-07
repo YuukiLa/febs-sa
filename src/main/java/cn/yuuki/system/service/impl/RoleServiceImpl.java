@@ -78,7 +78,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String[] roleIds) {
         List<String> list = Arrays.asList(roleIds);
-        baseMapper.deleteBatchIds(list);
+        baseMapper.deleteByIds(list);
 
         this.roleMenuService.deleteRoleMenusByRoleId(roleIds);
         this.userRoleService.deleteUserRolesByRoleId(roleIds);

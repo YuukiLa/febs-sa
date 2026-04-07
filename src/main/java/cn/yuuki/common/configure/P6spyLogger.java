@@ -9,7 +9,7 @@ public class P6spyLogger extends Slf4JLogger {
     @Override
     public void logSQL(int connectionId, String now, long elapsed, Category category, String prepared, String sql, String url) {
         if (StringUtils.isNotBlank(sql)) {
-            super.logSQL(connectionId, now, elapsed, category, prepared, sql, url);
+            super.logSQL(connectionId, now, elapsed, Category.DEBUG, prepared, sql, url);
         }
     }
 }

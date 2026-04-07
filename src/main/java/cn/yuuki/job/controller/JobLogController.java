@@ -8,14 +8,13 @@ import cn.yuuki.common.domain.constant.StringConstant;
 import cn.yuuki.common.utils.FebsUtil;
 import cn.yuuki.job.entity.JobLog;
 import cn.yuuki.job.service.IJobLogService;
-import com.wuwenze.poi.ExcelKit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +44,4 @@ public class JobLogController {
         this.jobLogService.deleteJobLogs(ids);
     }
 
-    @GetMapping("excel")
-    @SaCheckPermission("job:log:export")
-    public void export(QueryRequest request, JobLog jobLog, HttpServletResponse response) {
-        List<JobLog> jobLogs = this.jobLogService.findJobLogs(request, jobLog).getRecords();
-        ExcelKit.$Export(JobLog.class, response).downXlsx(jobLogs, false);
-    }
 }
